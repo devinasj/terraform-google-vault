@@ -493,7 +493,7 @@ EOF
 
 variable "vault_max_num_servers" {
   type    = string
-  default = "2"
+  default = "1"
 
   description = <<EOF
 Maximum number of Vault server nodes to run at one time. The group will not
