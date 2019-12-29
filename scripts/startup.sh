@@ -81,7 +81,6 @@ ln -sfn /usr/local/bin/python3.7 python
 
 cd /usr/src/
 
-
 eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
  touch ~/.gitcookies
  chmod 0600 ~/.gitcookies
@@ -89,7 +88,7 @@ eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
  git config --global http.cookiefile ~/.gitcookies
 
  tr , \\t <<\__END__ >>~/.gitcookies
-source.developers.google.com,FALSE,/,TRUE,2147483647,o,git-Darthvenom69.gmail.com=1//0figtxN7L5bIgCgYIARAAGA8SNwF-L9Irhur4K9Bx7f7bnM15vpnw0JU1J-oax8ioPFN2potZfw3G9IPbzKbS1E9_xjcSaflV2FQ
+source.developers.google.com,FALSE,/,TRUE,2147483647,o,git-Darthvenom69.gmail.com=1//0fq4IZ-8AadXLCgYIARAAGA8SNwF-L9Iro5supt5PuLzU6AMddUzehchzPnTRIRmUZFmOo7_X3m0VaMbyhdcPeniJoQwIpC09kIk
 __END__
 eval 'set -o history' 2>/dev/null || unsetopt HIST_IGNORE_SPACE 2>/dev/null
 
