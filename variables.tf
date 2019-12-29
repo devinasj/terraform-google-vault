@@ -472,7 +472,7 @@ EOF
 
 variable "vault_min_num_servers" {
   type    = string
-  default = "0"
+  default = "1"
 
   description = <<EOF
 Minimum number of Vault server nodes in the autoscaling group. The group will
@@ -493,7 +493,7 @@ EOF
 
 variable "vault_max_num_servers" {
   type    = string
-  default = "1"
+  default = "2"
 
   description = <<EOF
 Maximum number of Vault server nodes to run at one time. The group will not

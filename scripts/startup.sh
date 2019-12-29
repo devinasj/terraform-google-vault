@@ -1,5 +1,5 @@
 #!/bin/bash
-sleep 60
+sleep 90
 set -xe
 set -o pipefail
 
