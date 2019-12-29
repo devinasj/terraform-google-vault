@@ -78,7 +78,7 @@ PATH=$PATH:~/.local/bin/
 source ~/.bashrc
 cd /usr/bin
 ln -sfn /usr/local/bin/python3.7 python
-cd ..
+cd /usr/src/
 #  pip3 install --user virtualenvwrapper \
 #  mkdir Envs \
 #  echo 'export WORKON_HOME=~/Envs' >> ~/.bashrc \
