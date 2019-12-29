@@ -20,6 +20,7 @@
 # --------------------
 variable "project_id" {
   type = string
+  default = "kryptowizard"
 
   description = <<EOF
 ID of the project in which to create resources and add IAM bindings.
