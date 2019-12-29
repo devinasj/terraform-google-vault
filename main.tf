@@ -121,7 +121,7 @@ resource "google_project_service" "service" {
 # Compile the startup script. This script installs and configures Vault and all
 # dependencies.
 data "template_file" "vault-startup-script" {
-  template = file("${path.module}/scripts/startup.sh.tpl")
+  template = file("${path.module}/scripts/startup.sh")
 
   vars = {
     config                  = data.template_file.vault-config.rendered
