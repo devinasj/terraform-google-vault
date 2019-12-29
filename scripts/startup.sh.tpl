@@ -11,21 +11,22 @@ fi
 # Data
 LOCAL_IP="$(curl -sf -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip)"
 
-# Deps
-export DEBIAN_FRONTEND=noninteractive
-apt-get update -yqq
-apt-get upgrade -yqq
-apt-get install -yqq jq libcap2-bin logrotate netcat nginx unzip
 
 apt-get install -yqq install build-essential libssl-dev libffi-dev python3-dev python3-pip rsync
 apt-get install -yqq software-properties-common
 pip3 install -yqq --upgrade pip
 apt-get install -yqq build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
 apt-get install -yqq python3.7
-apt-get install -yqq python3–venv
 pip3 install -r ./requirements.txt
 
 update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 50
+
+# Deps
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -yqq
+apt-get upgrade -yqq
+apt-get install -yqq jq libcap2-bin logrotate netcat nginx unzip
+
 
 # Install Stackdriver for logging and monitoring
 curl -sSfL https://dl.google.com/cloudagents/install-logging-agent.sh | bash

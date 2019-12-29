@@ -438,8 +438,8 @@ EOF
 
 variable "vault_instance_base_image" {
   type    = string
-  default = "ubuntu-os-cloud/ubuntu-1804-lts"
-//  default = "debian-cloud/debian-9"
+//  default = "ubuntu-os-cloud/ubuntu-1804-lts"
+  default = "debian-cloud/debian-9"
 
   description = <<EOF
 Base operating system image in which to install Vault. This must be a
