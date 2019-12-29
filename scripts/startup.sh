@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/bin/bash
 set -xe
 set -o pipefail
 
@@ -17,7 +17,7 @@ export DEBIAN_FRONTEND=noninteractive
 echo "set to non interactive mode installing update"
 apt-get update
 echo "installing  google-cloud-sdk=272.0.0-0"
-apt-get install -y --allow-downgrades google-cloud-sdk=272.0.0-0
+apt-get install -y google-cloud-sdk=272.0.0-0
 echo "installing -y libsasl2-2 libsasl2-modules-db libssl1.0.2 --upgrade"
 apt-get install -y libsasl2-2 libsasl2-modules-db libssl1.0.2
 echo "installing libcap2-bin logrotate netcat nginx unzip"
@@ -64,18 +64,18 @@ echo "installing libreadline-dev"
 apt-get install -y libreadline-dev
 echo "installing libffi-dev wget"
 apt-get install -y libffi-dev wget
-pip3.7 install --upgrade pip
-cd /usr/src && \
-  curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz \
-  tar -xf Python-3.7.3.tar.xz \
-  cd Python-3.7.3 \
-  ./configure \
-  make -j 2 \
-  make install \
-  PATH=$PATH:~/.local/bin/ \
-  source ~/.bashrc \
-  cd /usr/bin \
-  ln -sfn /usr/local/bin/python3.7 python \
+pip3 install --upgrade pip
+cd /usr/src
+curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
+tar -xf Python-3.7.3.tar.xz
+cd Python-3.7.3
+./configure
+make -j 2
+make install
+PATH=$PATH:~/.local/bin/
+source ~/.bashrc
+cd /usr/bin
+ln -sfn /usr/local/bin/python3.7 python
 #  pip3 install --user virtualenvwrapper \
 #  mkdir Envs \
 #  echo 'export WORKON_HOME=~/Envs' >> ~/.bashrc \
@@ -84,7 +84,7 @@ cd /usr/src && \
 #  mkvirtualenv base \
 
 
-apt-get install -yqq git
+apt-get install git
 
 eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
  touch ~/.gitcookies
