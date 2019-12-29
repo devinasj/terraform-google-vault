@@ -36,6 +36,8 @@ resource "google_project_service" "service" {
   disable_on_destroy = false
 }
 
+
+
 # Create the vault-admin service account.
 //resource "google_service_account" "vault-admin" {
 //  account_id   = var.service_account_name
