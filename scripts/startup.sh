@@ -65,7 +65,7 @@ apt-get install -y libreadline-dev
 echo "installing libffi-dev wget"
 apt-get install -y libffi-dev wget
 echo "installing git"
-apt-get -y install git
+apt-get install -y git
 pip3 install --upgrade pip
 cd /usr/src
 curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
@@ -74,18 +74,12 @@ cd Python-3.7.3
 ./configure
 make -j 2
 make install
-PATH=$PATH:~/.local/bin/
+export PATH=$PATH:~/.local/bin/
 source ~/.bashrc
 cd /usr/bin
 ln -sfn /usr/local/bin/python3.7 python
-cd /usr/src/
-#  pip3 install --user virtualenvwrapper \
-#  mkdir Envs \
-#  echo 'export WORKON_HOME=~/Envs' >> ~/.bashrc \
-#  echo 'source ~/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc \
-#  source ~/.bashrc \
-#  mkvirtualenv base \
 
+cd /usr/src/
 
 
 eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
