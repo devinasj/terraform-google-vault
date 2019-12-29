@@ -66,7 +66,8 @@ resource "google_project_iam_member" "additional-project-iam" {
     var.service_account_project_additional_iam_roles,
     count.index,
   )
-  member = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member = "serviceAccount:${google_service_account.vault-admin.email}"
+  member  = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
 
 //  depends_on = [google_project_service.service]
   depends_on = [google_service_account.vault-admin]
@@ -77,7 +78,8 @@ resource "google_storage_bucket_iam_member" "vault" {
   count  = length(var.service_account_storage_bucket_iam_roles)
   bucket = google_storage_bucket.vault.name
   role   = element(var.service_account_storage_bucket_iam_roles, count.index)
-  member = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member = "serviceAccount:${google_service_account.vault-admin.email}"
+  member = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
 
 //  depends_on = [google_project_service.service]
   depends_on = [google_service_account.vault-admin]
@@ -87,7 +89,8 @@ resource "google_storage_bucket_iam_member" "vault" {
 resource "google_kms_crypto_key_iam_member" "ck-iam" {
   crypto_key_id = google_kms_crypto_key.vault-init.self_link
   role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-  member        = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member        = "serviceAccount:${google_service_account.vault-admin.email}"
+  member        = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
 
 //  depends_on = [google_project_service.service]
   depends_on = [google_service_account.vault-admin]
