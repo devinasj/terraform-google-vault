@@ -20,6 +20,7 @@ locals {
 
 # Configure the Google provider, locking to the 2.0 series.
 provider "google" {
+//  version = "2.12.0"
   project = var.project_id
   region  = var.region
 }
@@ -50,7 +51,8 @@ resource "google_project_iam_member" "project-iam" {
   count   = length(var.service_account_project_iam_roles)
   project = var.project_id
   role    = element(var.service_account_project_iam_roles, count.index)
-  member  = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member  = "serviceAccount:${google_service_account.vault-admin.email}"
+  member  = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
 
 //  depends_on = [google_project_service.service]
   depends_on = [google_service_account.vault-admin]
