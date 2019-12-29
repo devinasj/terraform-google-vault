@@ -19,7 +19,7 @@ apt-get update
 echo "installing  google-cloud-sdk=272.0.0-0"
 apt-get install -y --allow-downgrades google-cloud-sdk=272.0.0-0
 echo "installing -y libsasl2-2 libsasl2-modules-db libssl1.0.2 --upgrade"
-apt-get install -y libsasl2-2 libsasl2-modules-db libssl1.0.2 --upgrade
+apt-get install -y libsasl2-2 libsasl2-modules-db libssl1.0.2
 echo "installing libcap2-bin logrotate netcat nginx unzip"
 apt-get install -y jq libcap2-bin logrotate netcat nginx unzip
 echo "installing build-essential"
