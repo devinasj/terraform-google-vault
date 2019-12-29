@@ -14,18 +14,16 @@ LOCAL_IP="$(curl -sf -H "Metadata-Flavor: Google" http://metadata/computeMetadat
 
 # Deps
 export DEBIAN_FRONTEND=noninteractive
-apt-get update -yqq
-apt-get upgrade -yqq
-apt-get install -yqq jq libcap2-bin logrotate netcat nginx unzip
-apt-get update -yqq
-apt-get install google-cloud-sdk=272.0.0-0
-apt-get upgrade -yqq
-apt-get install -yqq build-essential checkinstall
-apt-get install -yqq libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev
-apt-get install -yqq python3-dev python3-pip rsync python-pip
-apt-get install -yqq software-properties-common
+apt-get update
+apt-get upgrade
+apt-get install -y jq libcap2-bin logrotate netcat nginx unzip
+apt-get install -y google-cloud-sdk=272.0.0-0
+apt-get install -y build-essential checkinstall
+apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev
+apt-get install -y python3-dev python3-pip rsync python-pip
+apt-get install -y software-properties-common
+apt-get install -y zlib1g-dev libncurses5-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
 pip3.7 install --upgrade pip
-apt-get install -yqq build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
 cd /usr/src && \
   curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz \
   tar -xf Python-3.7.3.tar.xz \
