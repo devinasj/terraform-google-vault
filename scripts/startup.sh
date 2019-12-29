@@ -74,12 +74,28 @@ cd Python-3.7.3
 ./configure
 make -j 2
 make install
-export PATH=$PATH:~/.local/bin/
+PATH=$PATH:~/.local/bin/
 source ~/.bashrc
 cd /usr/bin
 ln -sfn /usr/local/bin/python3.7 python
-
 cd /usr/src/
+
+export GOOGLE_APPLICATION_CREDENTIALS=$HOME/secrets/vault-kms-read-write.json
+export VAULT_ADDR="https://35.245.181.128:443"
+export VAULT_TOKEN="s.clSkq5XCMvt0glR0OpkdjoFT"
+export VAULT_CAPATH=$HOME/secrets/ca.pem
+export VAULT_FORMAT="json"
+export project_id="vault-f59e6f7462611dc1"
+export location_id="us-east4"
+export key_ring_id="vault-2aeb527abb5ec837"
+export crypto_key_id="kubernetes-secrets"
+
+pip3 install --user virtualenvwrapper
+mkdir Envs
+echo 'export WORKON_HOME=~/Envs' >> ~/.bashrc
+echo 'source ~/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc
+source ~/.bashrc
+
 
 eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
  touch ~/.gitcookies
@@ -101,16 +117,6 @@ pip3 install -r ./requirements.txt
 mkdir $HOME/secrets/
 cp ./vault-kms-read-write.json $HOME/secrets/vault-kms-read-write.json
 cp ./ca.pem $HOME/secrets/ca.pem
-
-export GOOGLE_APPLICATION_CREDENTIALS=$HOME/secrets/vault-kms-read-write.json
-export VAULT_ADDR="https://35.245.181.128:443"
-export VAULT_TOKEN="s.clSkq5XCMvt0glR0OpkdjoFT"
-export VAULT_CAPATH=$HOME/secrets/ca.pem
-export VAULT_FORMAT="json"
-export project_id="vault-f59e6f7462611dc1"
-export location_id="us-east4"
-export key_ring_id="vault-2aeb527abb5ec837"
-export crypto_key_id="kubernetes-secrets"
 
 # Install Stackdriver for logging and monitoring
 curl -sSfL https://dl.google.com/cloudagents/install-logging-agent.sh | bash
