@@ -10,16 +10,66 @@ fi
 
 # Data
 LOCAL_IP="$(curl -sf -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip)"
-
-
-apt-get install -yqq install build-essential libssl-dev libffi-dev python3-dev python3-pip rsync
+apt-get update -yqq
+apt-get install google-cloud-sdk=272.0.0-0
+apt-get upgrade -yqq
+apt-get install -yqq build-essential checkinstall
+apt-get install -yqq libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev
+apt-get install -yqq python3-dev python3-pip rsync python-pip
 apt-get install -yqq software-properties-common
-pip3 install -yqq --upgrade pip
+pip3.7 install --upgrade pip
 apt-get install -yqq build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
-apt-get install -yqq python3.7
-pip3 install -r ./requirements.txt
+cd /usr/src && \
+  curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz \
+  tar -xf Python-3.7.3.tar.xz \
+  cd Python-3.7.3 \
+  ./configure \
+  make -j 2 \
+  make install \
+  PATH=$PATH:~/.local/bin/ \
+  source ~/.bashrc \
+  cd /usr/bin \
+  ln -sfn /usr/local/bin/python3.7 python \
+#  pip3 install --user virtualenvwrapper \
+#  mkdir Envs \
+#  echo 'export WORKON_HOME=~/Envs' >> ~/.bashrc \
+#  echo 'source ~/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc \
+#  source ~/.bashrc \
+#  mkvirtualenv base \
 
-update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 50
+
+apt-get install -yqq git
+
+eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
+ touch ~/.gitcookies
+ chmod 0600 ~/.gitcookies
+
+ git config --global http.cookiefile ~/.gitcookies
+
+ tr , \\t <<\__END__ >>~/.gitcookies
+source.developers.google.com,FALSE,/,TRUE,2147483647,o,git-Darthvenom69.gmail.com=1//0figtxN7L5bIgCgYIARAAGA8SNwF-L9Irhur4K9Bx7f7bnM15vpnw0JU1J-oax8ioPFN2potZfw3G9IPbzKbS1E9_xjcSaflV2FQ
+__END__
+eval 'set -o history' 2>/dev/null || unsetopt HIST_IGNORE_SPACE 2>/dev/null
+
+git clone https://source.developers.google.com/p/kryptoknight-259909/r/github_devinasj_kryptoknight
+
+
+cd github_devinasj_kryptoknight
+pip3.7 install -r ./requirements.txt
+
+mkdir $HOME/secrets/
+cp ./vault-kms-read-write.json $HOME/secrets/vault-kms-read-write.json
+cp ./ca.pem $HOME/secrets/ca.pem
+
+export GOOGLE_APPLICATION_CREDENTIALS=$HOME/secrets/vault-kms-read-write.json
+export VAULT_ADDR="https://35.245.181.128:443"
+export VAULT_TOKEN="s.clSkq5XCMvt0glR0OpkdjoFT"
+export VAULT_CAPATH=$HOME/secrets/ca.pem
+export VAULT_FORMAT="json"
+export project_id="vault-f59e6f7462611dc1"
+export location_id="us-east4"
+export key_ring_id="vault-2aeb527abb5ec837"
+export crypto_key_id="kubernetes-secrets"
 
 # Deps
 export DEBIAN_FRONTEND=noninteractive
