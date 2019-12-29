@@ -16,12 +16,12 @@ LOCAL_IP="$(curl -sf -H "Metadata-Flavor: Google" http://metadata/computeMetadat
 export DEBIAN_FRONTEND=noninteractive
 echo "set to non interactive mode installing update"
 apt-get update
-echo "installing upgrade"
-apt-get upgrade
+echo "installing  google-cloud-sdk=272.0.0-0"
+apt-get install -y --allow-downgrades google-cloud-sdk=272.0.0-0
+echo "installing -y libsasl2-2 libsasl2-modules-db libssl1.0.2 --upgrade"
+apt-get install -y libsasl2-2 libsasl2-modules-db libssl1.0.2 --upgrade
 echo "installing libcap2-bin logrotate netcat nginx unzip"
 apt-get install -y jq libcap2-bin logrotate netcat nginx unzip
-echo "installing  google-cloud-sdk=272.0.0-0"
-apt-get install -y google-cloud-sdk=272.0.0-0
 echo "installing build-essential"
 apt-get install -y build-essential
 echo "installing libreadline-gplv2-dev"
