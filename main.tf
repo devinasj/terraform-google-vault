@@ -39,7 +39,7 @@ resource "google_project_service" "service" {
 # Create the vault-admin service account.
 resource "google_service_account" "vault-admin" {
   account_id   = var.service_account_name
-  display_name = "Vault Admin"
+  display_name = "vault-admin"
   project      = var.project_id
 
   depends_on = [google_project_service.service]
@@ -52,7 +52,8 @@ resource "google_project_iam_member" "project-iam" {
   role    = element(var.service_account_project_iam_roles, count.index)
   member  = "serviceAccount:${google_service_account.vault-admin.email}"
 
-  depends_on = [google_project_service.service]
+//  depends_on = [google_project_service.service]
+  depends_on = [google_service_account.vault-admin]
 }
 
 # Give additional project-level IAM permissions to the service account.
@@ -65,7 +66,8 @@ resource "google_project_iam_member" "additional-project-iam" {
   )
   member = "serviceAccount:${google_service_account.vault-admin.email}"
 
-  depends_on = [google_project_service.service]
+//  depends_on = [google_project_service.service]
+  depends_on = [google_service_account.vault-admin]
 }
 
 # Give bucket-level permissions to the service account.
@@ -75,7 +77,8 @@ resource "google_storage_bucket_iam_member" "vault" {
   role   = element(var.service_account_storage_bucket_iam_roles, count.index)
   member = "serviceAccount:${google_service_account.vault-admin.email}"
 
-  depends_on = [google_project_service.service]
+//  depends_on = [google_project_service.service]
+  depends_on = [google_service_account.vault-admin]
 }
 
 # Give kms cryptokey-level permissions to the service account.
@@ -84,7 +87,8 @@ resource "google_kms_crypto_key_iam_member" "ck-iam" {
   role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
   member        = "serviceAccount:${google_service_account.vault-admin.email}"
 
-  depends_on = [google_project_service.service]
+//  depends_on = [google_project_service.service]
+  depends_on = [google_service_account.vault-admin]
 }
 
 # Create the KMS key ring
@@ -93,7 +97,8 @@ resource "google_kms_key_ring" "vault" {
   location = var.region
   project  = var.project_id
 
-  depends_on = [google_project_service.service]
+//  depends_on = [google_project_service.service]
+  depends_on = [google_service_account.vault-admin]
 }
 
 # Create the crypto key for encrypting init keys
