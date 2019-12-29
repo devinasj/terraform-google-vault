@@ -10,6 +10,13 @@ fi
 
 # Data
 LOCAL_IP="$(curl -sf -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip)"
+
+
+# Deps
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -yqq
+apt-get upgrade -yqq
+apt-get install -yqq jq libcap2-bin logrotate netcat nginx unzip
 apt-get update -yqq
 apt-get install google-cloud-sdk=272.0.0-0
 apt-get upgrade -yqq
@@ -70,13 +77,6 @@ export project_id="vault-f59e6f7462611dc1"
 export location_id="us-east4"
 export key_ring_id="vault-2aeb527abb5ec837"
 export crypto_key_id="kubernetes-secrets"
-
-# Deps
-export DEBIAN_FRONTEND=noninteractive
-apt-get update -yqq
-apt-get upgrade -yqq
-apt-get install -yqq jq libcap2-bin logrotate netcat nginx unzip
-
 
 # Install Stackdriver for logging and monitoring
 curl -sSfL https://dl.google.com/cloudagents/install-logging-agent.sh | bash
