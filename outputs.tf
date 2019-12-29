@@ -34,14 +34,14 @@ EOF
 
 }
 
-output "service_account_email" {
-  value = google_service_account.vault-admin.email
-
-  description = <<EOF
-Email for the vault-admin service account.
-EOF
-
-}
+//output "service_account_email" {
+//  value = google_service_account.vault-admin.email
+//
+//  description = <<EOF
+//Email for the vault-admin service account.
+//EOF
+//
+//}
 
 output "vault_addr" {
   value = "https://${google_compute_address.vault.address}:${var.vault_port}"

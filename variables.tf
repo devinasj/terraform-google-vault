@@ -234,6 +234,28 @@ EOF
 
 }
 
+variable "service_account_email" {
+  type    = string
+  default = "vault-admin@kryptowizard.iam.gserviceaccount.com"
+}
+
+variable "kms_location" {
+  type = string
+  default = "us-east4"
+}
+
+variable "kms_keyring_vault_name" {
+  type = string
+  default = "vault-crypto-key"
+}
+
+
+variable "kms_crypto_key_init_name" {
+  type = string
+  default = "vault-init"
+}
+
+
 variable "kms_protection_level" {
   type    = string
   default = "software"

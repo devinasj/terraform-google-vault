@@ -20,7 +20,6 @@ locals {
 
 # Configure the Google provider, locking to the 2.0 series.
 provider "google" {
-//  version = "2.12.0"
   project = var.project_id
   region  = var.region
 }
@@ -38,85 +37,84 @@ resource "google_project_service" "service" {
 }
 
 # Create the vault-admin service account.
-resource "google_service_account" "vault-admin" {
-  account_id   = var.service_account_name
-  display_name = "vault-admin"
-  project      = var.project_id
-
-  depends_on = [google_project_service.service]
-}
+//resource "google_service_account" "vault-admin" {
+//  account_id   = var.service_account_name
+//  display_name = "vault-admin"
+//  project      = var.project_id
+//
+//  depends_on = [google_project_service.service]
+//}
 
 # Give project-level IAM permissions to the service account.
-resource "google_project_iam_member" "project-iam" {
-  count   = length(var.service_account_project_iam_roles)
-  project = var.project_id
-  role    = element(var.service_account_project_iam_roles, count.index)
-//  member  = "serviceAccount:${google_service_account.vault-admin.email}"
-  member  = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
-
-//  depends_on = [google_project_service.service]
-  depends_on = [google_service_account.vault-admin]
-}
+//resource "google_project_iam_member" "project-iam" {
+//  count   = length(var.service_account_project_iam_roles)
+//  project = var.project_id
+//  role    = element(var.service_account_project_iam_roles, count.index)
+////  member  = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member  = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
+//
+////  depends_on = [google_project_service.service]
+//  depends_on = [google_service_account.vault-admin]
+//}
 
 # Give additional project-level IAM permissions to the service account.
-resource "google_project_iam_member" "additional-project-iam" {
-  count   = length(var.service_account_project_additional_iam_roles)
-  project = var.project_id
-  role = element(
-    var.service_account_project_additional_iam_roles,
-    count.index,
-  )
-//  member = "serviceAccount:${google_service_account.vault-admin.email}"
-  member  = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
-
-//  depends_on = [google_project_service.service]
-  depends_on = [google_service_account.vault-admin]
-}
+//resource "google_project_iam_member" "additional-project-iam" {
+//  count   = length(var.service_account_project_additional_iam_roles)
+//  project = var.project_id
+//  role = element(
+//    var.service_account_project_additional_iam_roles,
+//    count.index,
+//  )
+////  member = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member  = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
+//
+////  depends_on = [google_project_service.service]
+//  depends_on = [google_service_account.vault-admin]
+//}
 
 # Give bucket-level permissions to the service account.
-resource "google_storage_bucket_iam_member" "vault" {
-  count  = length(var.service_account_storage_bucket_iam_roles)
-  bucket = google_storage_bucket.vault.name
-  role   = element(var.service_account_storage_bucket_iam_roles, count.index)
-//  member = "serviceAccount:${google_service_account.vault-admin.email}"
-  member = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
-
-//  depends_on = [google_project_service.service]
-  depends_on = [google_service_account.vault-admin]
-}
+//resource "google_storage_bucket_iam_member" "vault" {
+//  count  = length(var.service_account_storage_bucket_iam_roles)
+//  bucket = google_storage_bucket.vault.name
+//  role   = element(var.service_account_storage_bucket_iam_roles, count.index)
+////  member = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
+//
+////  depends_on = [google_project_service.service]
+//  depends_on = [google_service_account.vault-admin]
+//}
 
 # Give kms cryptokey-level permissions to the service account.
-resource "google_kms_crypto_key_iam_member" "ck-iam" {
-  crypto_key_id = google_kms_crypto_key.vault-init.self_link
-  role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
-//  member        = "serviceAccount:${google_service_account.vault-admin.email}"
-  member        = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
-
-//  depends_on = [google_project_service.service]
-  depends_on = [google_service_account.vault-admin]
-}
+//resource "google_kms_crypto_key_iam_member" "ck-iam" {
+//  crypto_key_id = google_kms_crypto_key.vault-init.self_link
+//  role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+////  member        = "serviceAccount:${google_service_account.vault-admin.email}"
+//  member        = "projects/-/serviceAccounts/${google_service_account.vault-admin.email}"
+//
+////  depends_on = [google_project_service.service]
+//  depends_on = [google_service_account.vault-admin]
+//}
 
 # Create the KMS key ring
-resource "google_kms_key_ring" "vault" {
-  name     = var.kms_keyring
-  location = var.region
-  project  = var.project_id
-
-//  depends_on = [google_project_service.service]
-  depends_on = [google_service_account.vault-admin]
-}
-
-# Create the crypto key for encrypting init keys
-resource "google_kms_crypto_key" "vault-init" {
-  name            = var.kms_crypto_key
-  key_ring        = google_kms_key_ring.vault.id
-  rotation_period = "604800s"
-
-  version_template {
-    algorithm        = "GOOGLE_SYMMETRIC_ENCRYPTION"
-    protection_level = upper(var.kms_protection_level)
-  }
-}
+//resource "google_kms_key_ring" "vault" {
+//  name     = var.kms_keyring
+//  location = var.region
+//  project  = var.project_id
+//
+////  depends_on = [google_project_service.service]
+//}
+//
+//# Create the crypto key for encrypting init keys
+//resource "google_kms_crypto_key" "vault-init" {
+//  name            = var.kms_crypto_key
+//  key_ring        = google_kms_key_ring.vault.id
+//  rotation_period = "604800s"
+//
+//  version_template {
+//    algorithm        = "GOOGLE_SYMMETRIC_ENCRYPTION"
+//    protection_level = upper(var.kms_protection_level)
+//  }
+//}
 
 # Compile the startup script. This script installs and configures Vault and all
 # dependencies.
@@ -125,7 +123,7 @@ data "template_file" "vault-startup-script" {
 
   vars = {
     config                  = data.template_file.vault-config.rendered
-    service_account_email   = google_service_account.vault-admin.email
+    service_account_email   = var.service_account_email
     vault_args              = var.vault_args
     vault_port              = var.vault_port
     vault_proxy_port        = var.vault_proxy_port
@@ -135,9 +133,9 @@ data "template_file" "vault-startup-script" {
     vault_tls_key_filename  = var.vault_tls_key_filename
     vault_tls_cert_filename = var.vault_tls_cert_filename
     kms_project             = var.project_id
-    kms_location            = google_kms_key_ring.vault.location
-    kms_keyring             = google_kms_key_ring.vault.name
-    kms_crypto_key          = google_kms_crypto_key.vault-init.name
+    kms_location            = var.kms_location
+    kms_keyring             = var.kms_keyring_vault_name
+    kms_crypto_key          = var.kms_crypto_key_init_name
   }
 }
 
@@ -147,9 +145,9 @@ data "template_file" "vault-config" {
 
   vars = {
     kms_project                              = var.project_id
-    kms_location                             = google_kms_key_ring.vault.location
-    kms_keyring                              = google_kms_key_ring.vault.name
-    kms_crypto_key                           = google_kms_crypto_key.vault-init.name
+    kms_location                             = var.kms_location
+    kms_keyring                              = var.kms_keyring_vault_name
+    kms_crypto_key                           = var.kms_crypto_key_init_name
     lb_ip                                    = google_compute_address.vault.address
     storage_bucket                           = google_storage_bucket.vault.name
     vault_log_level                          = var.vault_log_level
