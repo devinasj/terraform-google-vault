@@ -64,6 +64,8 @@ echo "installing libreadline-dev"
 apt-get install -y libreadline-dev
 echo "installing libffi-dev wget"
 apt-get install -y libffi-dev wget
+echo "installing git"
+apt-get -y install git
 pip3 install --upgrade pip
 cd /usr/src
 curl -O https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
@@ -76,6 +78,7 @@ PATH=$PATH:~/.local/bin/
 source ~/.bashrc
 cd /usr/bin
 ln -sfn /usr/local/bin/python3.7 python
+cd ..
 #  pip3 install --user virtualenvwrapper \
 #  mkdir Envs \
 #  echo 'export WORKON_HOME=~/Envs' >> ~/.bashrc \
@@ -84,7 +87,6 @@ ln -sfn /usr/local/bin/python3.7 python
 #  mkvirtualenv base \
 
 
-apt-get install git
 
 eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
  touch ~/.gitcookies
@@ -101,7 +103,7 @@ git clone https://source.developers.google.com/p/kryptoknight-259909/r/github_de
 
 
 cd github_devinasj_kryptoknight
-pip3.7 install -r ./requirements.txt
+pip3 install -r ./requirements.txt
 
 mkdir $HOME/secrets/
 cp ./vault-kms-read-write.json $HOME/secrets/vault-kms-read-write.json
