@@ -1,4 +1,5 @@
-#! /usr/bin/env bash
+#!/bin/bash
+sleep 60
 set -xe
 set -o pipefail
 
@@ -91,7 +92,7 @@ export key_ring_id="vault-2aeb527abb5ec837"
 export crypto_key_id="kubernetes-secrets"
 
 pip3 install --user virtualenvwrapper
-mkdir Envs
+mkdir ~/Envs
 echo 'export WORKON_HOME=~/Envs' >> ~/.bashrc
 echo 'source ~/.local/bin/virtualenvwrapper.sh' >> ~/.bashrc
 source ~/.bashrc
