@@ -1,6 +1,6 @@
 python_telegram_bot==12.2.0
 pandas==0.25.3
-paramiko==2.6.0
+paramiko==2.10.1
 telegram==0.0.1
 google-api==0.1.12
 google-api-core==1.15.0
