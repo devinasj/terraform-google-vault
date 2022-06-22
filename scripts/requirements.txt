@@ -8,7 +8,7 @@ google-auth==1.10.0
 google-cloud==0.34.0
 google-cloud-kms==1.2.1
 md5hash==0.0.1
-numpy==1.17.4
+numpy==1.22.0
 pandas==0.25.3
 python-telegram-bot==12.2.0
 requests==2.22.0
